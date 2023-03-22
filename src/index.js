@@ -1,52 +1,67 @@
-function createNav () {
-    const nav = document.createElement('nav');
-    nav.classList.add('nav');
-    nav.setAttribute('id', 'nav');
+import home from "./components/home";
+import menu from "./components/menu";
+import contact from "./components/contact";
 
-    const homeButton = document.createElement('button');
-    homeButton.classList.add('button-nav');
-    homeButton.textContent = 'Home';
-    homeButton.addEventListener('click', (e) => {
-        if(e.target.classList.contains('active')) return;
-        setActiveButton(homeButton);
-    })
+function createNav() {
+  const nav = document.createElement('nav');
 
-    const menuButton = document.createElement('button');
-    menuButton.classList.add('button-nav');
-    menuButton.textContent = 'Menu';
-    menuButton.addEventListener('click', (e) => {
-        if(e.target.classList.contains('active')) return;
-        setActiveButton(menuButton);
-    })
+  const logo = document.createElement('a');
+  logo.classList.add('nav-logo');
+  logo.textContent = 'Restaurant';
+  nav.appendChild(logo);
 
-    const contactButton = document.createElement('button');
-    contactButton.classList.add('button-nav');
-    contactButton.textContent = 'Contact';
-    contactButton.addEventListener('click', (e) => {
-        if(e.target.classList.contains('active')) return;
-        setActiveButton(contactButton);
-    })
-    
-    nav.appendChild(homeButton);
-    nav.appendChild(menuButton);
-    nav.appendChild(contactButton);
+  const div = document.createElement('div');
+  
+  const homeButton = document.createElement('button');
+  homeButton.textContent = 'Home';
+  homeButton.addEventListener('click', () => {
+    const main = document.querySelector('#main');
+    if (main) {
+      content.removeChild(content.childNodes[2])
+      content.appendChild(home());
+    }
+    else {
+      content.appendChild(home());
+    }
+  })
 
-    return nav;
+  const menuButton = document.createElement('button');
+  menuButton.textContent = 'Menu';
+  menuButton.addEventListener('click', () => {
+    const main = document.querySelector('#main');
+    if (main) {
+      content.removeChild(content.childNodes[2])
+      content.appendChild(menu());
+    }
+    else {
+      content.appendChild(menu());
+    }
+  })
+
+  const contactButton = document.createElement('button');
+  contactButton.textContent = 'Contact';
+  contactButton.addEventListener('click', () => {
+    const main = document.querySelector('#main');
+    if (main) {
+      content.removeChild(content.childNodes[2])
+      content.appendChild(contact());
+    }
+    else {
+      content.appendChild(contact());
+    }
+  })
+
+
+  div.appendChild(homeButton);
+  div.appendChild(menuButton);
+  div.appendChild(contactButton);
+
+  nav.appendChild(div);
+
+  return nav;
 }
-
-function setActiveButton(button) {
-    const buttons = document.querySelectorAll(".button-nav");
-  
-    buttons.forEach((button) => {
-      if (button !== this) {
-        button.classList.remove("active");
-      }
-    });
-  
-    button.classList.add("active");
-  }
 
 const content = document.querySelector('#content');
 
-
 content.appendChild(createNav());
+content.appendChild(home());
